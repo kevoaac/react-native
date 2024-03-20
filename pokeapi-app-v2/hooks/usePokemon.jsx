@@ -1,5 +1,6 @@
-import { useCallback, useState } from "react";
-import { fetchPokemon } from "../services/fetchPokemon";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { fetchPokemon, fetchPokemonList } from "../services/fetchPokemon";
+
 export function usePokemon(id) {
   const [pokemon, setPokemon] = useState(undefined);
   const [loading, setLoading] = useState(false);

@@ -1,21 +1,29 @@
-import { FlatList, Text, View } from "react-native";
+import { ActivityIndicator, FlatList, Text, View } from "react-native";
 import PokeHeader from "../../components/PokeHeader";
 import Constants from "expo-constants";
 import PokeItem from "../../components/PokeItem";
-import { fetchPokemonList } from "../../services/fetchPokemon";
-import pokemonList from "../../mocks/pokemonList";
 import { useEffect, useState } from "react";
+import { fetchPokemonList } from "../../services/fetchPokemon";
 
 function AllPokemons() {
   const [pokemonList, setPokemonList] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [nextURL, setNextURL] = useState("");
+
+  const getList = async () => {
+    setLoading(true);
+
+    const { newPokemonList, next } = await fetchPokemonList(nextURL);
+
+    setNextURL(next);
+    setPokemonList((prev) => [...prev, ...newPokemonList]);
+    setLoading(false);
+  };
 
   useEffect(() => {
-    const getPokemonList = async () => {
-      const data = await fetchPokemonList();
-      setPokemonList(data);
-    };
-    getPokemonList();
+    getList();
   }, []);
+
   return (
     <View
       className="flex-1 bg-slate-50"
@@ -26,12 +34,21 @@ function AllPokemons() {
         titleColor="white"
         className="bg-rose-500 p-2"
       />
+
       <FlatList
         data={pokemonList}
-        keyExtractor={(item) => item.name}
+        keyExtractor={(item) => item.id}
         ListHeaderComponent={() => <View className="h-2 bg-transparent" />}
         renderItem={({ item }) => <PokeItem item={item} imgSize={80} />}
-        ListFooterComponent={() => <View className="h-2 bg-transparent" />}
+        ListFooterComponent={() =>
+          loading ? (
+            <ActivityIndicator size="large" color="#000" />
+          ) : (
+            <Text onPress={getList} className="text-2xl text-center">
+              Cargar más
+            </Text>
+          )
+        }
         // ItemSeparatorComponent={() => <View className="h-2" />}
         contentContainerStyle={{ gap: 10 }}
       />
