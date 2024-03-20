@@ -11,18 +11,16 @@ function AllPokemons() {
   const [nextURL, setNextURL] = useState("");
 
   const getList = async () => {
-    setLoading(true);
+    if (loading) return;
 
+    setLoading(true);
+    console.log("fetching...");
     const { newPokemonList, next } = await fetchPokemonList(nextURL);
 
     setNextURL(next);
     setPokemonList((prev) => [...prev, ...newPokemonList]);
     setLoading(false);
   };
-
-  useEffect(() => {
-    getList();
-  }, []);
 
   return (
     <View
@@ -38,19 +36,13 @@ function AllPokemons() {
       <FlatList
         data={pokemonList}
         keyExtractor={(item) => item.id}
-        ListHeaderComponent={() => <View className="h-2 bg-transparent" />}
         renderItem={({ item }) => <PokeItem item={item} imgSize={80} />}
-        ListFooterComponent={() =>
-          loading ? (
-            <ActivityIndicator size="large" color="#000" />
-          ) : (
-            <Text onPress={getList} className="text-2xl text-center">
-              Cargar más
-            </Text>
-          )
-        }
-        // ItemSeparatorComponent={() => <View className="h-2" />}
+        onEndReached={getList}
+        onEndReachedThreshold={1}
+        ListHeaderComponent={() => <View className="h-2 bg-transparent" />}
+        ListFooterComponent={() => loading && <ActivityIndicator />}
         contentContainerStyle={{ gap: 10 }}
+        // debug={true}
       />
     </View>
   );
