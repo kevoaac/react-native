@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Text, View } from "react-native";
+import { FlatList, Image, StyleSheet, Text, View } from "react-native";
 import CustomImage from "../../components/CustomImage";
 import PokemonInfo from "../../components/PokemonInfo";
 import PokeHeader from "../../components/PokeHeader";
@@ -7,6 +7,10 @@ import { usePokemon } from "../../hooks/usePokemon";
 import Constants from "expo-constants";
 import { defaultPokemon } from "../../mocks/defaultPokemon";
 import Search from "../../components/Search";
+import { BlurView } from "expo-blur";
+
+const uri =
+  "https://e1.pxfuel.com/desktop-wallpaper/522/568/desktop-wallpaper-calvin-and-hobbes-16-16-bit-mobile-thumbnail.jpg";
 
 export default function PokeapiV2() {
   const [idPokemon, setIdPokemon] = useState({ id: "1" });
@@ -28,6 +32,7 @@ export default function PokeapiV2() {
       className="flex-1 bg-slate-50"
       style={{ marginTop: Constants.statusBarHeight }}
     >
+      <Image source={{ uri }} style={[StyleSheet.absoluteFill]} />
       <PokeHeader
         title="PokeApi V2"
         titleColor="white"
@@ -52,9 +57,14 @@ export default function PokeapiV2() {
 
       <PokemonInfo pokemon={pokemon} className="mx-auto" />
 
-      <View className="bg-blue-300 mx-auto p-2 rounded-lg my-4">
-        <CustomImage sourse={pokemon?.homeSprite} size={150} />
+      <View className="justify-center items-center  bbg-red-500">
+        <CustomImage sourse={pokemon?.homeSprite} size={250} />
       </View>
+      <FlatList
+        data={pokemon?.spritesList}
+        renderItem={({ item }) => <CustomImage sourse={item} size={200} />}
+        horizontal
+      />
     </View>
   );
 }

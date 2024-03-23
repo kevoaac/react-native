@@ -3,11 +3,21 @@ export const fetchPokemon = async (id) => {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
     const pokemon = await response.json();
 
+    const spritesList = Object.keys(pokemon.sprites)
+      .map((key) => {
+        if (key === "back_default") return pokemon.sprites[key];
+        if (key === "back_shiny") return pokemon.sprites[key];
+        if (key === "front_default") return pokemon.sprites[key];
+        if (key === "front_shiny") return pokemon.sprites[key];
+      })
+      .filter((value) => value !== undefined);
+
     return {
       id: pokemon.id,
       name: pokemon.name,
       sprite: pokemon.sprites.front_default,
       homeSprite: pokemon.sprites.other?.home?.front_default,
+      spritesList: spritesList,
       stats: pokemon.stats,
     };
   } catch (error) {

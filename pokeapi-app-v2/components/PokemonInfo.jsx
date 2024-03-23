@@ -1,5 +1,6 @@
 import { Text, View } from "react-native";
 import CustomImage from "./CustomImage";
+import { BlurView } from "expo-blur";
 
 function parseId(id) {
   const parsedId = id?.toString().padStart(4, "0");
@@ -8,9 +9,10 @@ function parseId(id) {
 
 function PokemonInfo({ pokemon, style }) {
   return (
-    <View
+    <BlurView
+      intensity={80}
       style={style}
-      className="relative bg-slate-200 p-4 rounded-md flex-row"
+      className="relative p-4 rounded-md flex-row border border-white/80 overflow-hidden "
     >
       <View className="justify-center mr-2">
         <View className="bg-blue-100 rounded-full border border-slate-400">
@@ -36,7 +38,7 @@ function PokemonInfo({ pokemon, style }) {
           </Text>
         ))}
       </View>
-    </View>
+    </BlurView>
   );
 }
 
