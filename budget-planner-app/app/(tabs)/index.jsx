@@ -1,4 +1,4 @@
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import { useEffect } from "react";
 import StyledText from "../../components/styledComponents/StyledText";
 import StyledButton from "../../components/styledComponents/StyledButton";
@@ -37,7 +37,14 @@ export default function Home() {
     <View style={[styles.container, { marginTop: Constants.statusBarHeight }]}>
       <Header />
       <PieCircleChart />
-      <StyledText xl2 bold style={{ marginVertical: 20, marginHorizontal: 20 }}>
+      <StyledText
+        xl2
+        bold
+        style={{
+          marginVertical: 20,
+          marginHorizontal: 20,
+        }}
+      >
         Último gasto
       </StyledText>
     </View>

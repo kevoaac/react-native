@@ -4,6 +4,7 @@ import theme from "../../util/theme";
 
 const styles = StyleSheet.create({
   text: {
+    fontFamily: theme.fontFamily.regular,
     color: theme.colors.black,
     fontSize: theme.fontSizes.md,
     fontWeight: theme.fontWeights.regular,
@@ -39,7 +40,7 @@ const styles = StyleSheet.create({
     fontSize: theme.fontSizes.xl4,
   },
   bold: {
-    fontWeight: theme.fontWeights.bold,
+    fontFamily: theme.fontFamily.bold,
   },
   colorPrimary: {
     color: theme.colors.primary,

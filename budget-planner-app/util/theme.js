@@ -7,6 +7,10 @@ export default theme = {
     secondary: "#98c3d6",
     accent: "#6e9ac5",
   },
+  fontFamily: {
+    regular: "Poppins",
+    bold: "Poppins-Bold",
+  },
 
   fontWeights: {
     regular: "400",
