@@ -2,6 +2,7 @@ export default theme = {
   colors: {
     white: "#f9fdfb",
     black: "#040906",
+    gray: "#f0eef0",
     primary: "#58bc7e",
     secondary: "#98c3d6",
     accent: "#6e9ac5",

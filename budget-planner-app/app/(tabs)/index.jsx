@@ -7,6 +7,9 @@ import { getData, storeData } from "../../services/storage";
 import { client } from "../../util/kindeConfig";
 import { useRouter } from "expo-router";
 import { supabase } from "../../util/supabaseConfig";
+import Header from "../../components/Header";
+import theme from "../../util/theme";
+import PieCircleChart from "../../components/PieCircleChart";
 
 export default function Home() {
   const router = useRouter();
@@ -18,15 +21,6 @@ export default function Home() {
   const checkUserAuth = async () => {
     const result = await getData("login");
     if (result !== "true") router.replace("/login");
-  };
-
-  const handleLogout = async () => {
-    const loggedOut = await client.logout(true);
-    if (loggedOut) {
-      // User was logged out
-      await storeData("login", "false");
-      router.replace("/login");
-    }
   };
 
   const getCategoryList = async () => {
@@ -41,14 +35,11 @@ export default function Home() {
   };
   return (
     <View style={[styles.container, { marginTop: Constants.statusBarHeight }]}>
-      <StyledText xl3 center bold>
-        Home
+      <Header />
+      <PieCircleChart />
+      <StyledText xl2 bold style={{ marginVertical: 20, marginHorizontal: 20 }}>
+        Último gasto
       </StyledText>
-      <StyledButton title="Log out" onPress={handleLogout}></StyledButton>
-      <StyledButton
-        title="getCategoryList"
-        onPress={getCategoryList}
-      ></StyledButton>
     </View>
   );
 }
@@ -56,6 +47,7 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: theme.colors.gray,
   },
   text: {
     color: "red",
