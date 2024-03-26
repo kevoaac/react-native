@@ -8,7 +8,7 @@ export default theme = {
     accent: "#6e9ac5",
   },
   fontFamily: {
-    regular: "Poppins",
+    regular: "Poppins-Regular",
     bold: "Poppins-Bold",
   },
 

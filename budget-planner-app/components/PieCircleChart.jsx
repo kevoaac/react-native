@@ -45,7 +45,7 @@ function Tag({ color, text }) {
         size={30}
         color={color}
       />
-      <Text style={{ fontFamily: "Poppins" }}>{text}</Text>
+      <Text style={{ fontFamily: "Poppins-Regular" }}>{text}</Text>
     </View>
   );
 }
