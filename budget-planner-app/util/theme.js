@@ -3,9 +3,11 @@ export default theme = {
     white: "#f9fdfb",
     black: "#040906",
     gray: "#f0eef0",
+    darkGray: "#a5a5a5",
     primary: "#58bc7e",
     secondary: "#98c3d6",
     accent: "#6e9ac5",
+    colorList: ["#4F75FE", "#13C38B", "#9F3CFE", "#FF555D", "#FF7D4F"],
   },
   fontFamily: {
     regular: "Poppins-Regular",

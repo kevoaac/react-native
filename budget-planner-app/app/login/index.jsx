@@ -31,7 +31,14 @@ export default function LoginScreen() {
         <StyledText lg white center style={{ marginHorizontal: 20 }}>
           Manten un control. Tu aplicación personal de planificación de gastos.
         </StyledText>
-        <StyledButton title="Log in/ Sign in" onPress={handleSignIn} />
+        <StyledButton
+          title="Log in/ Sign in"
+          onPress={handleSignIn}
+          white
+          bold
+          textPrimary
+          roundedFull
+        />
         <StyledText white center sm>
           Al iniciar sesión usted acepta los terminos y condiciones
         </StyledText>

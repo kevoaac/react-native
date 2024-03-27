@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, StyleSheet, Image } from "react-native";
 import React, { useEffect, useState } from "react";
 import theme from "../util/theme";
 import StyledText from "./styledComponents/StyledText";
@@ -6,6 +6,7 @@ import { client } from "../util/kindeConfig";
 
 export default function Header() {
   const [userData, setUserData] = useState({});
+
   const getUserData = async () => {
     const user = await client.getUserDetails();
 
@@ -21,7 +22,9 @@ export default function Header() {
 
   return (
     <View style={styles.header}>
-      <Image source={{ uri: userData?.picture }} style={styles.image} />
+      {userData && (
+        <Image source={{ uri: userData.picture }} style={styles.image} />
+      )}
       <View>
         <StyledText bold white lg>
           Bienvenido {userData.name}

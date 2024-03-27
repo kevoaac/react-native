@@ -1,15 +1,22 @@
-import { View, StyleSheet, Text } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Text,
+  TouchableHighlight,
+  TouchableOpacity,
+} from "react-native";
 import { useEffect } from "react";
 import StyledText from "../../components/styledComponents/StyledText";
 import StyledButton from "../../components/styledComponents/StyledButton";
 import Constants from "expo-constants";
 import { getData, storeData } from "../../services/storage";
 import { client } from "../../util/kindeConfig";
-import { useRouter } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import { supabase } from "../../util/supabaseConfig";
 import Header from "../../components/Header";
 import theme from "../../util/theme";
 import PieCircleChart from "../../components/PieCircleChart";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function Home() {
   const router = useRouter();
@@ -47,6 +54,9 @@ export default function Home() {
       >
         Último gasto
       </StyledText>
+      <Link style={styles.addButton} href={"/add-new-category"}>
+        <Ionicons name="add-circle" size={64} color={theme.colors.primary} />
+      </Link>
     </View>
   );
 }
@@ -59,5 +69,11 @@ const styles = StyleSheet.create({
   text: {
     color: "red",
     fontSize: 30,
+  },
+  addButton: {
+    position: "absolute",
+    bottom: 0,
+    right: 0,
+    padding: 10,
   },
 });
