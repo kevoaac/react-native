@@ -7,7 +7,6 @@ import ColorPicker from "../components/ColorPicker";
 import { MaterialIcons } from "@expo/vector-icons";
 import StyledButton from "../components/styledComponents/StyledButton";
 import { supabase } from "../util/supabaseConfig";
-import { getData } from "../services/storage";
 import { client } from "../util/kindeConfig";
 
 const { colorList, white, darkGray } = theme.colors;
@@ -40,7 +39,7 @@ export default function AddNewCategory() {
     if (error) {
       console.log("error", error);
     } else {
-      console.log("data", data);
+      console.log("Nuevo", data);
       ToastAndroid.show("Categoría añadida", ToastAndroid.SHORT);
     }
   };

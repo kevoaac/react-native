@@ -1,28 +1,23 @@
-import {
-  View,
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  TouchableOpacity,
-} from "react-native";
+import { View, StyleSheet, ScrollView, RefreshControl } from "react-native";
 import { useEffect } from "react";
 import StyledText from "../../components/styledComponents/StyledText";
-import StyledButton from "../../components/styledComponents/StyledButton";
 import Constants from "expo-constants";
-import { getData, storeData } from "../../services/storage";
-import { client } from "../../util/kindeConfig";
+import { getData } from "../../services/storage";
 import { Link, useRouter } from "expo-router";
-import { supabase } from "../../util/supabaseConfig";
 import Header from "../../components/Header";
 import theme from "../../util/theme";
 import PieCircleChart from "../../components/PieCircleChart";
 import { Ionicons } from "@expo/vector-icons";
+import { useCategoryList } from "../../hooks/useCategoryList";
+import CategoryList from "../../components/CategoryList";
 
 export default function Home() {
+  const { categories, loading, getCategoryList } = useCategoryList();
   const router = useRouter();
 
   useEffect(() => {
     checkUserAuth();
+    getCategoryList();
   }, []);
 
   const checkUserAuth = async () => {
@@ -30,30 +25,25 @@ export default function Home() {
     if (result !== "true") router.replace("/login");
   };
 
-  const getCategoryList = async () => {
-    const user = await client.getUserDetails();
-
-    const categories = await supabase
-      .from("Category")
-      .select("*")
-      .eq("created_by", user.email);
-
-    console.log(categories.data);
-  };
   return (
     <View style={[styles.container, { marginTop: Constants.statusBarHeight }]}>
-      <Header />
-      <PieCircleChart />
-      <StyledText
-        xl2
-        bold
-        style={{
-          marginVertical: 20,
-          marginHorizontal: 20,
-        }}
+      <ScrollView
+        onEn
+        refreshControl={
+          <RefreshControl
+            onRefresh={() => getCategoryList()}
+            refreshing={loading}
+          />
+        }
       >
-        Último gasto
-      </StyledText>
+        <Header />
+        <PieCircleChart />
+        <StyledText xl2 bold style={{ marginLeft: 20 }}>
+          Último gasto
+        </StyledText>
+
+        <CategoryList list={categories} />
+      </ScrollView>
       <Link style={styles.addButton} href={"/add-new-category"}>
         <Ionicons name="add-circle" size={64} color={theme.colors.primary} />
       </Link>
@@ -75,5 +65,6 @@ const styles = StyleSheet.create({
     bottom: 0,
     right: 0,
     padding: 10,
+    zIndex: 1,
   },
 });

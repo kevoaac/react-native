@@ -9,8 +9,8 @@ const { gray, white, primary, secondary } = theme.colors;
 
 export default function PieCircleChart() {
   const widthAndHeight = 150;
-  const [values, setValues] = useState([4, 5]); // [0, 0, 0, 0, 0
-  const [sliceColor, setSliceColor] = useState([secondary, primary]); // ["#f00", "#0f0", "#00f", "#ff0", "#0ff"
+  const [values, setValues] = useState([4, 5]);
+  const [sliceColor, setSliceColor] = useState([secondary, primary]);
   return (
     <View style={styles.container}>
       <StyledText xl2>
@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: white,
     marginHorizontal: 20,
+    marginVertical: 20,
     padding: 20,
     borderRadius: 15,
     marginTop: -60,
